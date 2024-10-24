@@ -1,7 +1,7 @@
 <template>
   <view class="nav-wrap">
     <view class="nav-title">
-      <u--image :show-loading="true" src="./static/logo.png" width="70px" height="70px" />
+      <u--image :show-loading="true" src="./static/images/home/logo.png" width="70px" height="70px" />
       <view class="nav-info">
         <view class="nav-info__title">
           <text class="nav-info__title__text">

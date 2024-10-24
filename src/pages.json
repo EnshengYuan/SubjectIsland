@@ -8,25 +8,39 @@
     }
   },
   "pages": [
-    {
-      "path": "pages/tab/home/index",
-      "style": {
+		{
+			"path": "pages/tab/home/index",
+			"style": {
+				"navigationBarBackgroundColor": "@navBgColor",
+				"navigationBarTextStyle": "@navTxtStyle",
         "navigationBarTitleText": "首页"
-      }
-    },
-    {
-      "path": "pages/tab/list/index",
-      "style": {
-        "navigationBarTitleText": "列表"
-      }
-    },
-    {
-      "path": "pages/tab/user/index",
-      "style": {
-        "navigationStyle": "custom"
-      }
-    }
-  ],
+			}
+		},
+		{
+			"path": "pages/tab/category/index",
+			"style": {
+				"navigationBarBackgroundColor": "@navBgColor",
+				"navigationBarTextStyle": "@navTxtStyle",
+        "navigationBarTitleText": "分类"
+			}
+		},
+		{
+			"path": "pages/tab/integral/index",
+			"style": {
+				"navigationBarBackgroundColor": "@navBgColor",
+				"navigationBarTextStyle": "@navTxtStyle",
+        "navigationBarTitleText": "积分"
+			}
+		},
+		{
+			"path": "pages/tab/mine/index",
+			"style": {
+				"navigationBarBackgroundColor": "@navBgColor",
+				"navigationBarTextStyle": "@navTxtStyle",
+        "navigationBarTitleText": "我的"
+			}
+		}
+	],
   "subPackages": [
     {
       "root": "pages/common",
@@ -49,25 +63,43 @@
     }
   },
   "tabBar": {
-    "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
-    "borderStyle": "black",
-    "backgroundColor": "#ffffff",
-    "list": [{
-      "pagePath": "pages/tab/home/index",
-      "text": "首页"
-    }, {
-      "pagePath": "pages/tab/list/index",
-      "text": "列表"
-    }, {
-      "pagePath": "pages/tab/user/index",
-      "text": "我的"
-    }]
-  },
+		"color": "@tabFontColor",
+		"selectedColor": "@tabSelectedColor",
+		"backgroundColor": "@tabBgColor",
+		"borderStyle": "@tabBorderStyle",
+		"list": [
+			{ 
+				"text": "首页",
+				"iconPath": "static/images/tabbar/home_unselected.png",
+				"selectedIconPath": "static/images/tabbar/home_selected.png",
+				"pagePath": "pages/tab/home/index"
+			},
+			{ 
+				"text": "分类",
+				"iconPath": "static/images/tabbar/category_unselected.png",
+				"selectedIconPath": "static/images/tabbar/category_selected.png",
+				"pagePath": "pages/tab/category/index"
+			},
+			{ 
+				"text": "积分",
+				"iconPath": "static/images/tabbar/integral_unselected.png",
+				"selectedIconPath": "static/images/tabbar/integral_selected.png",
+				"pagePath": "pages/tab/integral/index"
+			},
+			{ 
+				"text": "我的",
+				"iconPath": "static/images/tabbar/mine_unselected.png",
+				"selectedIconPath": "static/images/tabbar/mine_selected.png",
+				"pagePath": "pages/tab/mine/index"
+			}
+		]
+	},
   "globalStyle": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
-  }
+		"navigationBarBackgroundColor": "@navBgColor",
+		"navigationBarTextStyle": "@navTxtStyle",
+		"backgroundColor": "@bgColor",
+		"backgroundTextStyle": "@bgTxtStyle",
+		"backgroundColorTop": "@bgColorTop",
+		"backgroundColorBottom": "@bgColorBottom"
+	}
 }

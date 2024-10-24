@@ -1,8 +1,13 @@
 <template>
   <view class="flex flex-col items-center justify-center">
+    <view class="w-750rpx">
+      <u-swiper
+        :list="bannerList"
+      />
+    </view>
     <image
       class="mb-50rpx mt-200rpx h-200rpx w-200rpx"
-      src="@/static/images/logo.png"
+      src="@/static/images/home/logo.png"
       width="200rpx"
       height="200rpx"
     />
@@ -32,4 +37,6 @@ const showAgreePrivacy = ref(false);
 function handleAgree() {
   console.log('同意隐私政策');
 }
+
+const bannerList = ref(['/static/images/home/home_banner1.png']);
 </script>
