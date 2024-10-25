@@ -1,14 +1,14 @@
 <template>
-  <view class="flex">
+  <view class="flex" style="height: 100%;">
     <view class="w-180rpx">
-      <view v-for="(item, index) in formationList" :key="index" class="h-112rpx">
+      <view v-for="(item, index) in formationList" :key="index" class="h-112rpx text-center line-height-112rpx" :style="currentGradeIndex === index ? 'background:white' : ''" @click="clickGrade(index)">
         {{ item.subjectTitle }}
       </view>
     </view>
-    <view class="bg-white">
-      <view v-for="(item, index) in formationList[currenSubjectIndex].semester" :key="index" class="flex flex-col items-center">
+    <view class="bg-white flex-1">
+      <view v-for="(item, index) in formationList[currentGradeIndex].semester" :key="index" class="flex flex-col items-center">
         <view>{{ item. semesterTitle }}</view>
-        <view class="mt-8rpx w-750rpx bg-white pb-24rpx pt-24rpx">
+        <view class="mt-8rpx bg-white pb-24rpx pt-24rpx">
           <u-grid
             :border="false"
             col="3"
@@ -30,9 +30,11 @@
 </template>
 
 <script setup lang="ts">
-// import { ISubjectType } from './type.js';
+const currentGradeIndex = ref(0);
 
-const currenSubjectIndex = ref(0);
+const clickGrade = (index: number) => {
+  currentGradeIndex.value = index;
+};
 
 const formationList: any[] = [
   {

@@ -1,6 +1,9 @@
 <template>
   <view class="flex flex-col items-center justify-center">
-    <view class="w-750rpx">
+    <view class="w-702rpx mt-16rpx ml-24rpx - mr-24rpx">
+      <up-search v-model="searchKey" placeholder="日照香炉生紫烟" @change="changeKey" @search="clickSearch" />
+    </view>
+    <view class="w-750rpx mt-16rpx">
       <u-swiper
         :list="bannerList"
       />
@@ -27,7 +30,7 @@
       <u-toast ref="uToastRef" />
     </view>
     <view class="flex items-center w-750rpx bg-white pl-16rpx pr-16rpx pt-16rpx pb-16rpx mt-16rpx">
-      <image src="/static/images/home/recent.png" class="w-60rpx h-60rpx ml-16rpx" />
+      <image src="/static/images/home/recent.png" class="w-50rpx h-50rpx ml-16rpx" />
       <view class="ml-12rpx">
         最近更新
       </view>
@@ -96,6 +99,8 @@ const notice = ref('号外号外，看起来即使安装了 autoreconf 之后，
 const todayAmount = ref(10);
 const totalAmount = ref(1000);
 
+const searchKey = ref('');
+
 const subjectList = ref([
   {
     title: '一年级',
@@ -144,6 +149,27 @@ const uToastRef = ref(null);
 
 const clickGrid = (index: any) => {
   console.log('点击了', index);
+  uni.showToast({
+    title: `搜索${searchKey.value}`,
+  });
+};
+
+const clickSearch = () => {
+  console.log('用户点击了搜索', searchKey);
+  // if (uToastRef.value) {
+  //   uToastRef.value.show({
+  //     title: 'wqrqr'
+  //   })
+  // }
+
+  // uni.showToast({
+  //   title: '搜索：' + res.value,
+  //   icon: 'none'
+  // })
+};
+
+const changeKey = () => {
+  console.log('用户点击了搜索', searchKey);
 };
 
 const formationList: any[] = [
