@@ -1,63 +1,121 @@
 <template>
-  <z-paging ref="pagingRef" v-model="dataList" @query="queryList">
-    <view v-for="(item, index) in dataList" :key="index">
-      <u-cell :title="`列表长度-${index + 1}`">
-        <template #icon>
-          <u-avatar
-            shape="square"
-            size="35"
-            :src="item"
-            custom-style="margin: -3px 5px -3px 0"
-          />
-        </template>
-      </u-cell>
+  <view class="flex">
+    <view class="w-180rpx">
+      <view v-for="(item, index) in formationList" :key="index" class="h-112rpx">
+        {{ item.subjectTitle }}
+      </view>
     </view>
-  </z-paging>
+    <view class="bg-white">
+      <view v-for="(item, index) in formationList[currenSubjectIndex].semester" :key="index" class="flex flex-col items-center">
+        <view>{{ item. semesterTitle }}</view>
+        <view class="mt-8rpx w-750rpx bg-white pt-24rpx pb-24rpx">
+          <u-grid
+            :border="false"
+            col="3"
+          >
+            <u-grid-item
+              v-for="(subjectItem, subjectIndex) in item.SubjectList"
+              :key="subjectIndex"
+            >
+              <image :src="subjectItem.icon" width="80rpx" height="80rpx" class="w-120rpx h-120rpx" />
+              <text class="grid-text">
+                {{ subjectItem.title }}
+              </text>
+            </u-grid-item>
+          </u-grid>
+        </view>
+      </view>
+    </view>
+  </view>
 </template>
 
 <script setup lang="ts">
-import zPaging from 'z-paging/components/z-paging/z-paging.vue';
+import { ISubjectType } from './type.js';
 
-const pagingRef = ref<InstanceType<typeof zPaging> | null>(null);
-const dataList = ref<string[]>([]);
+const currenSubjectIndex = ref(0);
 
-const urls: string[] = [
-  'https://cdn.uviewui.com/uview/album/1.jpg',
-  'https://cdn.uviewui.com/uview/album/2.jpg',
-  'https://cdn.uviewui.com/uview/album/3.jpg',
-  'https://cdn.uviewui.com/uview/album/4.jpg',
-  'https://cdn.uviewui.com/uview/album/5.jpg',
-  'https://cdn.uviewui.com/uview/album/6.jpg',
-  'https://cdn.uviewui.com/uview/album/7.jpg',
-  'https://cdn.uviewui.com/uview/album/8.jpg',
-  'https://cdn.uviewui.com/uview/album/9.jpg',
-  'https://cdn.uviewui.com/uview/album/10.jpg',
+const formationList: any[] = [
+  {
+    subjectTitle: '一年级',
+    semester: [
+      {
+        semesterTitle: '一年级上',
+        SubjectList: [
+          {
+            title: '语文',
+            iconType: ISubjectType.CHINESE,
+          },
+          {
+            title: '数学',
+            iconType: ISubjectType.MATH,
+          },
+          {
+            title: '英语',
+            iconType: ISubjectType.ENGLISH,
+          },
+
+        ],
+      },
+      {
+        semesterTitle: '一年级下',
+        SubjectList: [
+          {
+            title: '语文',
+            iconType: ISubjectType.CHINESE,
+          },
+          {
+            title: '数学',
+            iconType: ISubjectType.MATH,
+          },
+          {
+            title: '英语',
+            iconType: ISubjectType.ENGLISH,
+          },
+
+        ],
+      },
+    ],
+  },
+  {
+    subjectTitle: '二年级',
+    semester: [
+      {
+        semesterTitle: '二年级上',
+        SubjectList: [
+          {
+            title: '语文',
+            iconType: ISubjectType.CHINESE,
+          },
+          {
+            title: '数学',
+            iconType: ISubjectType.MATH,
+          },
+          {
+            title: '英语',
+            iconType: ISubjectType.ENGLISH,
+          },
+
+        ],
+      },
+      {
+        semesterTitle: '二年级下',
+        SubjectList: [
+          {
+            title: '语文',
+            iconType: ISubjectType.CHINESE,
+          },
+          {
+            title: '数学',
+            iconType: ISubjectType.MATH,
+          },
+          {
+            title: '英语',
+            iconType: ISubjectType.ENGLISH,
+          },
+
+        ],
+      },
+    ],
+  },
 ];
-
-function queryList(pageNo: number, pageSize: number) {
-  console.log('[ pageNo ] >', pageNo);
-  console.log('[ pageSize ] >', pageSize);
-  // 这里的pageNo和pageSize会自动计算好，直接传给服务器即可
-  // 这里的请求只是演示，请替换成自己的项目的网络请求，并在网络请求回调中通过pagingRef.value.complete(请求回来的数组)将请求结果传给z-paging
-  setTimeout(() => {
-    // 1秒之后停止刷新动画
-    const list = [];
-    for (let i = 0; i < 30; i++)
-      list.push(urls[uni.$u.random(0, urls.length - 1)]);
-
-    pagingRef.value?.complete(list);
-  }, 1000);
-  // this.$request
-  //   .queryList({ pageNo, pageSize })
-  //   .then(res => {
-  //     // 请勿在网络请求回调中给dataList赋值！！只需要调用complete就可以了
-  //     pagingRef.value.complete(res.data.list);
-  //   })
-  //   .catch(res => {
-  //     // 如果请求失败写pagingRef.value.complete(false)，会自动展示错误页面
-  //     // 注意，每次都需要在catch中写这句话很麻烦，z-paging提供了方案可以全局统一处理
-  //     // 在底层的网络请求抛出异常时，写uni.$emit('z-paging-error-emit');即可
-  //     pagingRef.value.complete(false);
-  //   });
-}
 </script>
