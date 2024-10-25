@@ -8,7 +8,7 @@
     <view class="bg-white">
       <view v-for="(item, index) in formationList[currenSubjectIndex].semester" :key="index" class="flex flex-col items-center">
         <view>{{ item. semesterTitle }}</view>
-        <view class="mt-8rpx w-750rpx bg-white pt-24rpx pb-24rpx">
+        <view class="mt-8rpx w-750rpx bg-white pb-24rpx pt-24rpx">
           <u-grid
             :border="false"
             col="3"
@@ -17,7 +17,7 @@
               v-for="(subjectItem, subjectIndex) in item.SubjectList"
               :key="subjectIndex"
             >
-              <image :src="subjectItem.icon" width="80rpx" height="80rpx" class="w-120rpx h-120rpx" />
+              <image :src="subjectItem.icon" width="80rpx" height="80rpx" class="h-120rpx w-120rpx" />
               <text class="grid-text">
                 {{ subjectItem.title }}
               </text>
@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { ISubjectType } from './type.js';
+// import { ISubjectType } from './type.js';
 
 const currenSubjectIndex = ref(0);
 
@@ -43,15 +43,15 @@ const formationList: any[] = [
         SubjectList: [
           {
             title: '语文',
-            iconType: ISubjectType.CHINESE,
+            iconType: 0,
           },
           {
             title: '数学',
-            iconType: ISubjectType.MATH,
+            iconType: 1,
           },
           {
             title: '英语',
-            iconType: ISubjectType.ENGLISH,
+            iconType: 2,
           },
 
         ],
@@ -61,15 +61,15 @@ const formationList: any[] = [
         SubjectList: [
           {
             title: '语文',
-            iconType: ISubjectType.CHINESE,
+            iconType: 0,
           },
           {
             title: '数学',
-            iconType: ISubjectType.MATH,
+            iconType: 1,
           },
           {
             title: '英语',
-            iconType: ISubjectType.ENGLISH,
+            iconType: 2,
           },
 
         ],
@@ -84,15 +84,15 @@ const formationList: any[] = [
         SubjectList: [
           {
             title: '语文',
-            iconType: ISubjectType.CHINESE,
+            iconType: 0,
           },
           {
             title: '数学',
-            iconType: ISubjectType.MATH,
+            iconType: 1,
           },
           {
             title: '英语',
-            iconType: ISubjectType.ENGLISH,
+            iconType: 2,
           },
 
         ],
@@ -102,15 +102,15 @@ const formationList: any[] = [
         SubjectList: [
           {
             title: '语文',
-            iconType: ISubjectType.CHINESE,
+            iconType: 0,
           },
           {
             title: '数学',
-            iconType: ISubjectType.MATH,
+            iconType: 1,
           },
           {
             title: '英语',
-            iconType: ISubjectType.ENGLISH,
+            iconType: 2,
           },
 
         ],

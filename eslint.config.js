@@ -2,7 +2,7 @@ import antfu from '@antfu/eslint-config';
 
 export default antfu(
   {
-    unocss: false,
+    unocss: true,
   },
   {
     ignores: ['uni_modules'],
