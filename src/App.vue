@@ -4,6 +4,9 @@ import { mpUpdate } from '@/utils/index';
 onLaunch(() => {
   console.log('App Launch');
   // #ifdef MP-WEIXIN
+  wx.cloud.init({
+    env: 'subjectlib-0gd6lir684eb2e12',
+  });
   mpUpdate();
   // #endif
 });

@@ -155,7 +155,9 @@ const clickGrid = (index: any) => {
 };
 
 const clickSearch = () => {
-  console.log('用户点击了搜索', searchKey);
+  uni.showToast({
+    title: `搜索${searchKey.value}`,
+  });
   // if (uToastRef.value) {
   //   uToastRef.value.show({
   //     title: 'wqrqr'
@@ -171,6 +173,25 @@ const clickSearch = () => {
 const changeKey = () => {
   console.log('用户点击了搜索', searchKey);
 };
+
+// 小程序云开发
+const db = wx.cloud.database();
+db.collection('gradeTable').get({
+  success(res) {
+    console.log('onMounted1', res);
+  },
+});
+
+// onMounted(() => {
+//   console.error('onMounted')
+//   try {
+//     const db = wx.cloud.database()
+//     console.info('db==>', db);
+
+//   } catch (error) {
+//     console.error('onmounted');
+//   }
+// });
 
 const formationList: any[] = [
   {
