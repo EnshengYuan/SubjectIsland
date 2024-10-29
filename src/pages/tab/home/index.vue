@@ -1,7 +1,8 @@
 <template>
   <view class="flex flex-col items-center justify-center">
-    <view class="w-702rpx mt-16rpx ml-24rpx - mr-24rpx">
-      <up-search v-model="searchKey" placeholder="日照香炉生紫烟" @change="changeKey" @search="clickSearch" />
+    <view class="flex items-center w-680rpx h-72rpx mt-16rpx ml-35rpx mr-35rpx pl-16rpx pr-16rpx rounded-10" style="background: #eee;">
+      <image src="/static/images/home/ic_search.png" class="w-40rpx h-40rpx" />
+      <input v-model="searchKey" class="ml-8rpx" type="number" placeholder="请输入手机号" @confirm="clickSearch">
     </view>
     <view class="w-750rpx mt-16rpx">
       <u-swiper
@@ -23,7 +24,7 @@
         >
           <image :src="item.icon" width="80rpx" height="80rpx" class="w-120rpx h-120rpx" />
           <text class="grid-text">
-            {{ item.title }}
+            {{ item.gradeName }}
           </text>
         </u-grid-item>
       </u-grid>
@@ -94,55 +95,14 @@ function handleAgree() {
 }
 
 const bannerList = ref(['/static/images/home/home_banner1.png']);
-const notice = ref('号外号外，看起来即使安装了 autoreconf 之后，仍然存在一些问题。');
+const notice = ref('');
 
 const todayAmount = ref(10);
 const totalAmount = ref(1000);
 
 const searchKey = ref('');
 
-const subjectList = ref([
-  {
-    title: '一年级',
-    icon: '/static/images/home/one_grade.png',
-  },
-  {
-    title: '二年级',
-    icon: '/static/images/home/one_grade.png',
-  },
-  {
-    title: '三年级',
-    icon: '/static/images/home/one_grade.png',
-  },
-  {
-    title: '四年级',
-    icon: '/static/images/home/one_grade.png',
-  },
-  {
-    title: '五年级',
-    icon: '/static/images/home/one_grade.png',
-  },
-  {
-    title: '一年级',
-    icon: '/static/images/home/one_grade.png',
-  },
-  {
-    title: '二年级',
-    icon: '/static/images/home/one_grade.png',
-  },
-  {
-    title: '三年级',
-    icon: '/static/images/home/one_grade.png',
-  },
-  {
-    title: '四年级',
-    icon: '/static/images/home/one_grade.png',
-  },
-  {
-    title: '五年级',
-    icon: '/static/images/home/one_grade.png',
-  },
-]);
+const subjectList = ref([]);
 
 // 创建对子组件的引用
 const uToastRef = ref(null);
@@ -170,28 +130,40 @@ const clickSearch = () => {
   // })
 };
 
-const changeKey = () => {
-  console.log('用户点击了搜索', searchKey);
-};
-
-// 小程序云开发
-const db = wx.cloud.database();
-db.collection('gradeTable').get({
-  success(res) {
-    console.log('onMounted1', res);
-  },
+onMounted(() => {
+  getNoticeText();
+  getGradeList();
 });
 
-// onMounted(() => {
-//   console.error('onMounted')
-//   try {
-//     const db = wx.cloud.database()
-//     console.info('db==>', db);
+/**
+ * 获取通知消息
+ */
+function getNoticeText() {
+  wx.cloud.callFunction({
+    name: 'getNoticeText',
+    data: {},
+  })
+    .then((res) => {
+      notice.value = res?.result?.noticeText;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
 
-//   } catch (error) {
-//     console.error('onmounted');
-//   }
-// });
+/** 获取年级列表 */
+function getGradeList() {
+  wx.cloud.callFunction({
+    name: 'getGradeList',
+    data: {},
+  })
+    .then((res) => {
+      subjectList.value = res.result?.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
 
 const formationList: any[] = [
   {

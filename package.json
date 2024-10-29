@@ -69,6 +69,7 @@
     "pinia-plugin-persistedstate": "^4.1.1",
     "uview-plus": "^3.3.37",
     "vue": "3.4.21",
+    "wx-server-sdk": "^3.0.1",
     "z-paging": "^2.8.0"
   },
   "devDependencies": {

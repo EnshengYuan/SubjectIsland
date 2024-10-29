@@ -65,6 +65,9 @@
     "usingComponents": true,
     /* 合并组件虚拟节点外层属性（目前仅支持 style、class 属性） */
     "mergeVirtualHostAttributes": true,
+    /** 关闭过滤无依赖文件*/
+    "ignoreDevUnusedFiles": false, 
+    "ignoreUploadUnusedFiles": false,
     /** 配置云函数开发目录*/
     "cloudfunctionRoot": "cloudfunctions/"
   },
