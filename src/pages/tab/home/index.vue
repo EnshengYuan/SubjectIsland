@@ -16,14 +16,14 @@
       <u-grid
         :border="false"
         col="5"
-        @click="clickGrid"
       >
         <u-grid-item
-          v-for="(item, index) in subjectList"
+          v-for="(item, index) in gradeList"
           :key="index"
+          @click="clickGrid"
         >
           <image :src="item.icon" width="80rpx" height="80rpx" class="w-120rpx h-120rpx" />
-          <text class="grid-text">
+          <text class="grid-text" style="color:#ffc200;font-weight: 600;">
             {{ item.gradeName }}
           </text>
         </u-grid-item>
@@ -77,16 +77,19 @@
 </template>
 
 <script setup lang="ts">
-// import { useUserStore } from '@/store';
 // import zPaging from 'z-paging/components/z-paging/z-paging.vue';
 // const pagingRef = ref<InstanceType<typeof zPaging> | null>(null);
 // const dataList = ref<string[]>([]);
-
 // const title = ref<string>();
 // title.value = import.meta.env.VITE_APP_TITLE;
 
+// import { useUserStore } from '@/store';
 // const store = useUserStore();
 // console.log('store.user_name', store.user_name);
+
+import { useCommonStore } from '@/store';
+
+const commonStore = useCommonStore();
 
 const showAgreePrivacy = ref(false);
 // 同意隐私协议
@@ -102,15 +105,17 @@ const totalAmount = ref(1000);
 
 const searchKey = ref('');
 
-const subjectList = ref([]);
+const gradeList = ref([]);
 
 // 创建对子组件的引用
 const uToastRef = ref(null);
 
 const clickGrid = (index: any) => {
-  console.log('点击了', index);
-  uni.showToast({
-    title: `搜索${searchKey.value}`,
+  commonStore.setCommonValue({
+    gradeIndex: index,
+  });
+  uni.switchTab({
+    url: '/pages/tab/category/index',
   });
 };
 
@@ -158,7 +163,7 @@ function getGradeList() {
     data: {},
   })
     .then((res) => {
-      subjectList.value = res.result?.data;
+      gradeList.value = res.result?.data;
     })
     .catch((error) => {
       console.error(error);
