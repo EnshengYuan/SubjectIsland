@@ -1,5 +1,5 @@
 {
-  "easycom": {
+	"easycom": {
     "custom": {
       "^u--(.*)": "uview-plus/components/u-$1/u-$1.vue",
       "^up-(.*)": "uview-plus/components/u-$1/u-$1.vue",
@@ -52,7 +52,13 @@
         {
           "path": "webview/index",
           "navigationBarTitleText": "网页"
-        }
+        },
+				{
+					"path": "list/index",
+					"style": {
+						"navigationBarTitleText": "列表"
+					}
+				}
       ]
     }
   ],

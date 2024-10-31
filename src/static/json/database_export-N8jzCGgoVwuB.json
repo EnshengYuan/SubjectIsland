@@ -1,0 +1,50 @@
+{
+    "_id": "33c5161d67226ce011aad2303080dcab",
+    "icon": "https://7375-subjectlib-0gd6lir684eb2e12-1330735754.tcb.qcloud.la/%E5%9B%BE%E6%A0%87/%E4%B8%80%E5%B9%B4%E7%BA%A7.png?sign=c7ff04724e9241fcf151e29b329efbf2&t=1730304184",
+    "semester": [
+        {
+            "subjectCategory": [
+                {
+                    "iconType": 0.0,
+                    "title": "语文(统编)",
+                    "subjectId": "chinese1"
+                },
+                {
+                    "title": "数学(通用)",
+                    "iconType": 1.0,
+                    "subjectId": "math1"
+                },
+                {
+                    "title": "数学(人教)",
+                    "iconType": 1.0,
+                    "subjectId": "math2"
+                },
+                {
+                    "iconType": 1.0,
+                    "title": "数学(北师)",
+                    "subjectId": "math3"
+                }
+            ],
+            "title": "一年级上",
+            "semesterId": "last"
+        },
+        {
+            "subjectCategory": [
+                {
+                    "iconType": 0.0,
+                    "title": "语文(统编)",
+                    "subjectId": "chinese1"
+                },
+                {
+                    "title": "数学(通用)",
+                    "iconType": 1.0,
+                    "subjectId": "math1"
+                }
+            ],
+            "title": "一年级下",
+            "semesterId": "next"
+        }
+    ],
+    "gradeName": "一年级",
+    "gradeId": "grade1"
+}
