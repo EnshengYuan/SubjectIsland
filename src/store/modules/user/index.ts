@@ -1,15 +1,15 @@
 import type { LoginParams } from '@/api/user/types';
 
-import type { providerType, UserState } from './types';
 import { UserApi } from '@/api';
 import { clearToken, setToken } from '@/utils/auth';
+import type { providerType, UserState } from './types';
 
 import { defineStore } from 'pinia';
 
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
     user_id: '',
-    user_name: '江阳小道',
+    user_name: 'cuilong',
     avatar: '',
     token: '',
   }),

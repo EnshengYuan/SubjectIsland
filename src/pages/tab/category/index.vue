@@ -1,24 +1,28 @@
 <template>
   <view class="flex" style="height: 100%;">
     <view class="w-180rpx">
-      <view v-for="(item, index) in formationList" :key="index" class="h-112rpx text-center line-height-112rpx" :style="currentGradeIndex === index ? 'background:white' : ''" @click="clickGrade(index)">
-        {{ item.subjectTitle }}
+      <view v-for="(gradeItem, gradeindex) in gradeList" :key="gradeindex" class="h-112rpx text-center line-height-112rpx" :style="currentGradeIndex === gradeindex ? 'background:white' : ''" @click="clickGrade(gradeindex)">
+        {{ gradeItem.gradeName }}
       </view>
     </view>
     <view class="bg-white flex-1">
-      <view v-for="(item, index) in formationList[currentGradeIndex].semester" :key="index" class="flex flex-col items-center">
-        <view>{{ item. semesterTitle }}</view>
-        <view class="mt-8rpx bg-white pb-24rpx pt-24rpx">
+      <view v-for="(semesterItem, semesterIndex) in gradeList[currentGradeIndex].semester" :key="semesterIndex" class="flex flex-col items-center">
+        <view class="mt-30rpx">
+          {{ semesterItem.title }}
+        </view>
+        <view class="mt-8rpx bg-white pb-24rpx pt-24rpx w-100%">
           <u-grid
             :border="false"
             col="3"
           >
             <u-grid-item
-              v-for="(subjectItem, subjectIndex) in item.SubjectList"
+              v-for="(subjectItem, subjectIndex) in semesterItem.subjectCategory"
               :key="subjectIndex"
+              style="margin-top: 16rpx;"
             >
-              <image :src="subjectItem.icon" width="80rpx" height="80rpx" class="h-120rpx w-120rpx" />
-              <text class="grid-text">
+              <!-- <image :src="subjectItem.icon"  width="80rpx" height="80rpx" class="h-120rpx w-120rpx" /> -->
+              <image src="/static/images/home/logo.png" width="80rpx" height="80rpx" class="h-120rpx w-120rpx" />
+              <text class="grid-text" style="font-size: 24rpx;">
                 {{ subjectItem.title }}
               </text>
             </u-grid-item>
@@ -30,94 +34,35 @@
 </template>
 
 <script setup lang="ts">
-const currentGradeIndex = ref(0);
+import { useCommonStore } from '@/store';
+
+const commonStore = useCommonStore();
+const currentGradeIndex = ref<number>(0);
+const gradeList = ref([]);
 
 const clickGrade = (index: number) => {
   currentGradeIndex.value = index;
 };
 
-const formationList: any[] = [
-  {
-    subjectTitle: '一年级',
-    semester: [
-      {
-        semesterTitle: '一年级上',
-        SubjectList: [
-          {
-            title: '语文',
-            iconType: 0,
-          },
-          {
-            title: '数学',
-            iconType: 1,
-          },
-          {
-            title: '英语',
-            iconType: 2,
-          },
+onMounted(() => {
+  getGradeList();
+});
 
-        ],
-      },
-      {
-        semesterTitle: '一年级下',
-        SubjectList: [
-          {
-            title: '语文',
-            iconType: 0,
-          },
-          {
-            title: '数学',
-            iconType: 1,
-          },
-          {
-            title: '英语',
-            iconType: 2,
-          },
+onShow(() => {
+  currentGradeIndex.value = commonStore.gradeIndex || 0;
+});
 
-        ],
-      },
-    ],
-  },
-  {
-    subjectTitle: '二年级',
-    semester: [
-      {
-        semesterTitle: '二年级上',
-        SubjectList: [
-          {
-            title: '语文',
-            iconType: 0,
-          },
-          {
-            title: '数学',
-            iconType: 1,
-          },
-          {
-            title: '英语',
-            iconType: 2,
-          },
-
-        ],
-      },
-      {
-        semesterTitle: '二年级下',
-        SubjectList: [
-          {
-            title: '语文',
-            iconType: 0,
-          },
-          {
-            title: '数学',
-            iconType: 1,
-          },
-          {
-            title: '英语',
-            iconType: 2,
-          },
-
-        ],
-      },
-    ],
-  },
-];
+/** 获取年级列表 */
+function getGradeList() {
+  wx.cloud.callFunction({
+    name: 'getGradeList',
+    data: {},
+  })
+    .then((res) => {
+      gradeList.value = res.result?.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
 </script>
