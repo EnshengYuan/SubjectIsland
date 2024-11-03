@@ -16,6 +16,12 @@ onShow(() => {
 onHide(() => {
   console.log('App Hide');
 });
+onShareAppMessage(() => {
+  return {
+    title: '详情',
+    path: '/pages/tabbar/home/index',
+  };
+});
 </script>
 
 <style lang="scss">

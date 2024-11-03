@@ -140,6 +140,13 @@ onMounted(() => {
   getGradeList();
 });
 
+onShareAppMessage(() => {
+  return {
+    title: '学科岛',
+    path: '/pages/tabbar/home/index',
+  };
+});
+
 /**
  * 获取通知消息
  */

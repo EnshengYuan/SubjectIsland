@@ -55,4 +55,11 @@ const toCopy = async () => {
   const data = await getClipboardData();
   console.log('[ data ] >', data);
 };
+
+onShareAppMessage(() => {
+  return {
+    title: '学科岛',
+    path: '/pages/tabbar/home/index',
+  };
+});
 </script>

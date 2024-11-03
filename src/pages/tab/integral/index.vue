@@ -13,6 +13,13 @@
 import { ref } from 'vue';
 
 const title = ref('Hello');
+
+onShareAppMessage(() => {
+  return {
+    title: '学科岛',
+    path: '/pages/tabbar/home/index',
+  };
+});
 </script>
 
 <style>

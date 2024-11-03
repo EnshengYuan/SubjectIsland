@@ -1,7 +1,10 @@
 <template>
   <view class="mt-2rpx w-750rpx bg-white pl-2 pr-2">
     <z-paging ref="pagingRef" v-model="formationList" @query="queryList">
-      <view v-for="(item, index) in formationList" :key="index" class="flex pt-24rpx pb-24rpx ml-30rpx mr-30rpx" style="border-bottom: 2rpx solid #f2f2f2;">
+      <view
+        v-for="(item, index) in formationList" :key="index" class="flex pt-24rpx pb-24rpx ml-30rpx mr-30rpx" style="border-bottom: 2rpx solid #f2f2f2;"
+        @click="gotoDetail(item)"
+      >
         <image :src="item.coverImage" class="w-160rpx h-190rpx" />
         <view class="flex flex-col ml-1 position-relative flex-1">
           <view class="mt-8rpx">
@@ -13,7 +16,7 @@
           <view class="position-absolute bottom-0 flex items-center position-absolute" style="width: 100%;">
             <image src="/static/images/home/easy.png" class="w-30rpx h-30rpx" />
             <view class="ml-16rpx">
-              {{ randomScan() }}人浏览
+              {{ item.scanAmout }}人浏览
             </view>
             <image src="/static/images/home/doc.png" class="w-30rpx h-30rpx ml-16rpx" />
             <view class="ml-16rpx flex-1">
@@ -37,9 +40,9 @@ const formationList = ref<string[]>([]);
 const pageParamRef = ref({});
 
 onLoad((option: any) => {
-  if (option?.pageTitle) {
+  if (option?.navTitle) {
     uni.setNavigationBarTitle({
-      title: option.pageTitle,
+      title: option.navTitle,
     });
   }
 
@@ -50,6 +53,13 @@ onLoad((option: any) => {
   };
 });
 
+onShareAppMessage(() => {
+  return {
+    title: '学科岛',
+    path: '/pages/tabbar/home/index',
+  };
+});
+
 const randomScan = () => {
   // 生成一个150到800之间的随机数
   const randomNumber = Math.floor(Math.random() * (800 - 150 + 1)) + 150;
@@ -57,8 +67,7 @@ const randomScan = () => {
 };
 
 function queryList(pageNo: number, pageSize: number) {
-  console.log('[ pageNo ] >', pageNo);
-  console.log('[ pageSize ] >', pageSize);
+  console.log(pageNo, pageSize);
   // 这里的pageNo和pageSize会自动计算好，直接传给服务器即可
   // 这里的请求只是演示，请替换成自己的项目的网络请求，并在网络请求回调中通过pagingRef.value.complete(请求回来的数组)将请求结果传给z-paging
   wx.cloud.callFunction({
@@ -67,10 +76,14 @@ function queryList(pageNo: number, pageSize: number) {
       gradeId: pageParamRef.value?.gradeId,
       semesterId: pageParamRef.value?.semesterId,
       subjectId: pageParamRef.value?.subjectId,
+      publisher: pageParamRef.value?.publisher,
     },
   })
     .then((res) => {
-      pagingRef.value.complete(res?.result?.data || []);
+      pagingRef.value.complete(res?.result?.data || []).map((item) => {
+        item.scanAmout = randomScan();
+        return item;
+      });
     })
     .catch((error) => {
       console.error(error);
@@ -79,15 +92,15 @@ function queryList(pageNo: number, pageSize: number) {
       // 在底层的网络请求抛出异常时，写uni.$emit('z-paging-error-emit');即可
       pagingRef.value.complete(false);
     });
-
-  // setTimeout(() => {
-  //   const list = [];
-  //   for (let i = 0; i < 30; i++)
-  //     list.push(urls[uni.$u.random(0, urls.length - 1)]);
-
-  //   pagingRef.value?.complete(list);
-  // }, 1000);
 }
+
+const gotoDetail = (item: any) => {
+  const detail = encodeURIComponent(JSON.stringify(item));
+  uni.navigateTo({
+    url: `/pages/common/detail/index?detail=${detail}`,
+    data: item,
+  });
+};
 </script>
 
 <style scoped>

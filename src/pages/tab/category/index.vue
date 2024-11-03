@@ -19,12 +19,11 @@
               v-for="(subjectItem, subjectIndex) in semesterItem?.subjectCategory"
               :key="subjectIndex"
               style="margin-top: 16rpx;"
-              @click="clickSubject(gradeList[currentGradeIndex]?.gradeId, semesterItem?.semesterId, subjectItem?.subjectId)"
+              @click="clickSubject(gradeList[currentGradeIndex]?.gradeId, semesterItem?.semesterId, subjectItem?.subjectId, subjectItem?.publisher, switch2Title(subjectItem.subjectId, subjectItem.publisher))"
             >
-              <!-- <image :src="subjectItem.icon"  width="80rpx" height="80rpx" class="h-120rpx w-120rpx" /> -->
               <image src="/static/images/home/logo.png" width="80rpx" height="80rpx" class="h-120rpx w-120rpx" />
               <text class="grid-text" style="font-size: 24rpx;">
-                {{ subjectItem.title }}
+                {{ switch2Title(subjectItem.subjectId, subjectItem.publisher) }}
               </text>
             </u-grid-item>
           </u-grid>
@@ -53,24 +52,32 @@ onShow(() => {
   currentGradeIndex.value = commonStore.gradeIndex || 0;
 });
 
-const clickSubject = (gradeId: string, semesterId: string, subjectId: string) => {
+const switch2Title = (subjectId: string, publisher: string) => {
+  let title = '';
+  if (subjectId === 'chinese') {
+    title = `语文` + `(${publisher})`;
+  }
+  else if (subjectId === 'math') {
+    title = `数学` + `(${publisher})`;
+  }
+  else if (subjectId === 'english') {
+    title = `英语` + `(${publisher})`;
+  }
+
+  return title;
+};
+
+onShareAppMessage(() => {
+  return {
+    title: '学科岛',
+    path: '/pages/tabbar/home/index',
+  };
+});
+
+const clickSubject = (gradeId: string, semesterId: string, subjectId: string, publisher: string, subjectTitle: string) => {
   uni.navigateTo({
-    url: '/pages/common/list/index',
+    url: `/pages/common/list/index?gradeId=${gradeId}&semesterId=${semesterId}&subjectId=${subjectId}&publisher=${publisher}&navTitle=${subjectTitle}`,
   });
-  wx.cloud.callFunction({
-    name: 'getFormationList',
-    data: {
-      gradeId,
-      semesterId,
-      subjectId,
-    },
-  })
-    .then((res) => {
-      console.log('res=>', res?.result?.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
 };
 
 /** 获取年级列表 */
