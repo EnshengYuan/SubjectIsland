@@ -42,6 +42,9 @@ const gradeList = ref([]);
 
 const clickGrade = (index: number) => {
   currentGradeIndex.value = index;
+  commonStore.setCommonValue({
+    gradeIndex: index,
+  });
 };
 
 onMounted(() => {
@@ -55,14 +58,33 @@ onShow(() => {
 const switch2Title = (subjectId: string, publisher: string) => {
   let title = '';
   if (subjectId === 'chinese') {
-    title = `语文` + `(${publisher})`;
+    title = `语文`;
   }
   else if (subjectId === 'math') {
-    title = `数学` + `(${publisher})`;
+    title = `数学`;
   }
   else if (subjectId === 'english') {
-    title = `英语` + `(${publisher})`;
+    title = `英语`;
   }
+  else if (subjectId === 'history') {
+    title = `历史`;
+  }
+  else if (subjectId === 'geography') {
+    title = `地理`;
+  }
+  else if (subjectId === 'biology') {
+    title = `生物`;
+  }
+  else if (subjectId === 'taoism') {
+    title = `道法`;
+  }
+  else if (subjectId === 'physics') {
+    title = `物理`;
+  }
+  else if (subjectId === 'chemical') {
+    title = `化学`;
+  }
+  title += `(${publisher})`;
 
   return title;
 };
