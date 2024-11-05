@@ -10,10 +10,10 @@
           <view class="mt-8rpx">
             {{ item.formationName }}
           </view>
-          <view class="color-red position-absolute bottom-10">
+          <view class="color-red position-absolute bottom-60rpx">
             {{ 10 }}积分
           </view>
-          <view class="position-absolute bottom-0 flex items-center position-absolute" style="width: 100%;">
+          <view class="position-absolute bottom-0 flex items-center position-absolute w-100%" :style="`visibility:${commonStore.isAduit ? 'hidden' : 'visible'}`">
             <image src="/static/images/home/easy.png" class="w-30rpx h-30rpx" />
             <view class="ml-16rpx">
               {{ item.scanAmout }}人浏览
@@ -35,9 +35,12 @@
 <script setup lang="ts">
 import zPaging from 'z-paging/components/z-paging/z-paging.vue';
 
+import { useCommonStore } from '@/store';
+
 const pagingRef = ref<InstanceType<typeof zPaging> | null>(null);
 const formationList = ref<string[]>([]);
 const pageParamRef = ref({});
+const commonStore = useCommonStore();
 
 onLoad((option: any) => {
   if (option?.navTitle) {
@@ -55,7 +58,7 @@ onLoad((option: any) => {
 
 onShareAppMessage(() => {
   return {
-    title: '学科岛',
+    title: '知识印记',
     path: '/pages/tabbar/home/index',
   };
 });

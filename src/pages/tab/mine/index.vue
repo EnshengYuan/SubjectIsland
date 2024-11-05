@@ -58,7 +58,7 @@ const toCopy = async () => {
 
 onShareAppMessage(() => {
   return {
-    title: '学科岛',
+    title: '知识印记',
     path: '/pages/tabbar/home/index',
   };
 });

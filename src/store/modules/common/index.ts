@@ -4,6 +4,7 @@ import type { CommonState } from './types';
 const useCommonStore = defineStore('common', {
   state: (): CommonState => ({
     gradeIndex: 0,
+    isAduit: 0,
   }),
   getters: {
     commonValue(state: CommonState): CommonState {

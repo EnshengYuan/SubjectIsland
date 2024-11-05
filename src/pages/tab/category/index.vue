@@ -21,7 +21,7 @@
               style="margin-top: 16rpx;"
               @click="clickSubject(gradeList[currentGradeIndex]?.gradeId, semesterItem?.semesterId, subjectItem?.subjectId, subjectItem?.publisher, switch2Title(subjectItem.subjectId, subjectItem.publisher))"
             >
-              <image src="/static/images/home/logo.png" width="80rpx" height="80rpx" class="h-120rpx w-120rpx" />
+              <image :src="switch2Icon(subjectItem.subjectId)" width="80rpx" height="80rpx" class="h-120rpx w-120rpx" />
               <text class="grid-text" style="font-size: 24rpx;">
                 {{ switch2Title(subjectItem.subjectId, subjectItem.publisher) }}
               </text>
@@ -54,6 +54,39 @@ onMounted(() => {
 onShow(() => {
   currentGradeIndex.value = commonStore.gradeIndex || 0;
 });
+
+const switch2Icon = (subjectId: string) => {
+  let icon = '';
+  if (subjectId === 'chinese') {
+    icon = '/static/images/category/chinese.png';
+  }
+  else if (subjectId === 'math') {
+    icon = `/static/images/category/math.png`;
+  }
+  else if (subjectId === 'english') {
+    icon = `/static/images/category/english.png`;
+  }
+  else if (subjectId === 'history') {
+    icon = `/static/images/category/history.png`;
+  }
+  else if (subjectId === 'geography') {
+    icon = `/static/images/category/geography.png`;
+  }
+  else if (subjectId === 'biology') {
+    icon = `/static/images/category/biology.png`;
+  }
+  else if (subjectId === 'taoism') {
+    icon = `/static/images/category/taoism.png`;
+  }
+  else if (subjectId === 'physics') {
+    icon = `/static/images/category/physics.png`;
+  }
+  else if (subjectId === 'chemical') {
+    icon = `/static/images/category/chemical.png`;
+  }
+
+  return icon;
+};
 
 const switch2Title = (subjectId: string, publisher: string) => {
   let title = '';
@@ -91,7 +124,7 @@ const switch2Title = (subjectId: string, publisher: string) => {
 
 onShareAppMessage(() => {
   return {
-    title: '学科岛',
+    title: '知识印记',
     path: '/pages/tabbar/home/index',
   };
 });

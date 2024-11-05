@@ -6,7 +6,7 @@
         {{ formationDetail.formationName }}
       </view>
     </view>
-    <view class="flex items-center pt-24rpx pb-24rpx color-#999" style="border-bottom: 2rpx solid #f2f2f2;">
+    <view class="flex items-center pt-24rpx pb-24rpx color-#999" :style="`border-bottom: 2rpx solid #f2f2f2;visibility:${commonStore.isAduit ? 'hidden' : 'visible'}`">
       <view class>
         {{ formationDetail.date }}
       </view>
@@ -62,7 +62,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+import { useCommonStore } from '@/store';
+
 const formationDetail = ref();
+const commonStore = useCommonStore();
 
 onLoad((option: any) => {
   let detail = {};
@@ -100,7 +103,7 @@ const toHome = () => {
 
 onShareAppMessage(() => {
   return {
-    title: '学科岛',
+    title: '知识印记',
     path: '/pages/tabbar/home/index',
   };
 });

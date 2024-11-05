@@ -12,7 +12,7 @@
     <div>
       <u-notice-bar :text="notice" />
     </div>
-    <view class="mt-8rpx w-750rpx bg-white pt-24rpx pb-24rpx">
+    <view class="mt-8rpx w-750rpx bg-white pt-24rpx pb-48rpx">
       <u-grid
         :border="false"
         col="5"
@@ -22,8 +22,9 @@
           :key="index"
           @click="clickGrid"
         >
-          <image :src="item.icon" width="80rpx" height="80rpx" class="w-120rpx h-120rpx" />
-          <text class="grid-text" style="color:#ffc200;font-weight: 600;">
+          <image :src="item.icon" width="80rpx" height="80rpx" class="w-80rpx h-80rpx mt-20rpx" />
+          <!-- <image src="/static/images/home/logo_without_text.png" width="80rpx" height="80rpx" class="w-80rpx h-80rpx mt-20rpx" /> -->
+          <text class="grid-text color-#333">
             {{ item.gradeName }}
           </text>
         </u-grid-item>
@@ -50,10 +51,10 @@
           <view class="mt-8rpx">
             {{ item.title }}
           </view>
-          <view class="color-red position-absolute bottom-10">
+          <view class="color-red position-absolute bottom-60rpx">
             {{ item.integral }}积分
           </view>
-          <view class="position-absolute bottom-0 flex items-center position-absolute" style="width: 100%;">
+          <view class="position-absolute bottom-0 flex items-center position-absolute" style="width: 100%;" :style="`visibility:${commonStore.isAduit ? 'hidden' : 'visible'}`">
             <image src="/static/images/home/easy.png" class="w-30rpx h-30rpx" />
             <view class="ml-16rpx">
               {{ item.scanAmount }}人浏览
@@ -142,7 +143,7 @@ onMounted(() => {
 
 onShareAppMessage(() => {
   return {
-    title: '学科岛',
+    title: '知识印记',
     path: '/pages/tabbar/home/index',
   };
 });

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { mpUpdate } from '@/utils/index';
 
+import { useCommonStore } from '@/store';
+
 onLaunch(() => {
   console.log('App Launch');
   // #ifdef MP-WEIXIN
@@ -8,6 +10,7 @@ onLaunch(() => {
     env: 'subjectlib-0gd6lir684eb2e12',
   });
   mpUpdate();
+  fixAduitStatus();
   // #endif
 });
 onShow(() => {
@@ -22,6 +25,24 @@ onShareAppMessage(() => {
     path: '/pages/tabbar/home/index',
   };
 });
+const commonStore = useCommonStore();
+function fixAduitStatus() {
+  wx.cloud.callFunction({
+    name: 'getAduitStatus',
+    data: {},
+  })
+    .then((res) => {
+      console.log('审核状态==>', res.result);
+      if (res) {
+        commonStore.setCommonValue({
+          isAduit: res.result,
+        });
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
 </script>
 
 <style lang="scss">
